@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /*
  *  Copyright (c) 2015-present, Facebook, Inc.
  *  All rights reserved.
@@ -11,10 +10,12 @@
 
 'use strict';
 
-var OptionParser = require('../dist/OptionParser');
-var Runner = require('../dist/Runner');
+var clc = require('cli-color');
 
-var args = process.argv.slice(2); // skip "node" and "jscodeshift.sh"
-var options = new OptionParser(args).parse();
+function logError(message) {
+  var args = Array.prototype.slice.apply(arguments);
+  args[0] = clc.whiteBright.bgRed('ERROR') + ' ' + message
+  console.log.apply(console, args);
+}
 
-Runner.run(options.transform, options.path, options);
+module.exports = logError;

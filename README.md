@@ -32,15 +32,31 @@ path     Files to transform
 
 Options:
    -t FILE, --transform FILE   Path to the transform file  [./transform.js]
+   --config FILE               Path to a configuration file
    -c, --cpus                  (all by default) Determines the number of processes started.
    -v, --verbosity             Show more information about the transform process  [0]
    -d, --dry                   Dry run (no changes are made to files)
    -p, --print                 Print output, useful for development
 ```
 
-This passes the source of all passed through the transform module specified
-with `-t` or `--transform` (defaults to `transform.js` in the current
-directory). The next section explains the structure of the transform module.
+This passes the source of all passed through the transform module specified with
+`-t` or `--transform` (defaults to `transform.js` in the current directory). See
+the "Transform module" section below for an explanation of the structure of the
+transform module.
+
+## Configuration
+
+A JSON file containing default options can be passed in to jscodeshift
+using the `--config` option. In the absence of a specific `--config` file,
+jscodeshift will look in the following default locations, in this order:
+
+- `.jscodeshiftrc` in the current working directory
+- `.jscodeshiftrc` in the home directory
+- `/etc/jscodeshiftrc`
+
+Default options in the config file will be used as though they had been
+specified when invoking the tool, but can be overridden by options explicitly
+passed on the command-line.
 
 ## Transform module
 

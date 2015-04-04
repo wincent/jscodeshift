@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /*
  *  Copyright (c) 2015-present, Facebook, Inc.
  *  All rights reserved.
@@ -11,10 +10,8 @@
 
 'use strict';
 
-var OptionParser = require('../dist/OptionParser');
-var Runner = require('../dist/Runner');
-
-var args = process.argv.slice(2); // skip "node" and "jscodeshift.sh"
-var options = new OptionParser(args).parse();
-
-Runner.run(options.transform, options.path, options);
+/**
+ * Wrap the `process` global in a module so that it can be mocked in the test
+ * suite.
+ */
+module.exports = process;

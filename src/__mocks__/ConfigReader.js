@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /*
  *  Copyright (c) 2015-present, Facebook, Inc.
  *  All rights reserved.
@@ -11,10 +10,19 @@
 
 'use strict';
 
-var OptionParser = require('../dist/OptionParser');
-var Runner = require('../dist/Runner');
+/**
+ * We mock the ConfigReader in the test environment in order to isolate us from
+ * `/etc/jscodeshiftrc` and `~/.jscodeshiftrc` which may exist on the local
+ * system.
+ */
+class ConfigReader {
+  static getConfigPaths() {
+    return [];
+  }
 
-var args = process.argv.slice(2); // skip "node" and "jscodeshift.sh"
-var options = new OptionParser(args).parse();
+  read() {
+    return {};
+  }
+}
 
-Runner.run(options.transform, options.path, options);
+module.exports = ConfigReader;

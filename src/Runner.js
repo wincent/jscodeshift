@@ -14,6 +14,7 @@ var child_process = require('child_process');
 var clc = require('cli-color');
 var cpus = require('os').cpus().length - 1;
 var fs = require('fs');
+var logError = require('./util/logError');
 
 function ok(msg, verbosity) {
   verbosity >= 2 && console.log(clc.white.bgGreen(' OKK '), msg);
@@ -57,10 +58,7 @@ var log = {
 
 function run(transformFile, files, options) {
   if (!fs.existsSync(transformFile)) {
-    console.log(
-      clc.whiteBright.bgRed('ERROR') + ' Transform file %s does not exist',
-      transformFile
-    );
+    logError('Transform file %s does not exist', transformFile);
     return;
   }
 
